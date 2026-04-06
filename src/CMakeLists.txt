@@ -1,5 +1,6 @@
 add_executable(${PROJECT_NAME}
     startup.c
+    uart.c
 )
 
 # Link with the linker script from this directory.

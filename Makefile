@@ -22,7 +22,7 @@ $(CMAKE_CONFIG):
 
 
 link_boot:
-	unlink BOOT 
+	unlink BOOT || true
 	ln -s $(BOOT_PATH) .
 
 

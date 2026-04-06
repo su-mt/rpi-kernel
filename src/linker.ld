@@ -12,4 +12,5 @@ SECTIONS {
         *(text.*)
         PROVIDE (__TEXT_END__ = .);
     } > ram
+
 }
