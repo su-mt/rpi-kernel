@@ -1,8 +1,5 @@
-
 #ifndef _UART_H
 #define _UART_H
-
-
 
 #define UART0_BASE 0x3F000000
 
@@ -19,6 +16,15 @@
 #define GPPUD *(volatile unsigned int *)(GPIO_BASE + 0x94)
 #define GPPUDCLK0 *(volatile unsigned int *)(GPIO_BASE + 0x98)
 
+
+#define UART_putchar(c)                       \
+    do {                                      \
+        while (!(AUX_MU_LSR_REG & (1 << 5)))  \
+            ;                                 \
+        AUX_MU_IO_REG = (c);                  \
+    } while (0)
+
 void UART_Init ();
+void UART_puts(const char* str);
 
 #endif // _dUART_H

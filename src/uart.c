@@ -1,14 +1,11 @@
 #include "uart.h"
 
-static inline void delay(int count) {
-    while(count--) {
-        // nop (No Operation) не дает компилятору вырезать этот цикл при оптимизации
-        __asm__ __volatile__("nop"); 
+
+void UART_puts(const char* str) {
+    while(*str !='\0'){
+        UART_putchar(*str++);
     }
-
 }
-
-
 
 void UART_Init () {
     // Зафиксировать GPIO14 и GPIO15 в ALT5 для mini UART TXD/RXD
@@ -18,9 +15,7 @@ void UART_Init () {
 
     // Отключаем pull-ups/downs для GPIO14 и GPIO15
     GPPUD = 0;      // Отключаем pull-up/down
-    delay(150);     // Задержка
     GPPUDCLK0 = (1 << 14) | (1 << 15); // Применяем к GPIO14 и GPIO15
-    delay(150);     // Задержка
     GPPUDCLK0 = 0;  // Отключаем часы
 
     // Инициализация mini UART
@@ -33,14 +28,5 @@ void UART_Init () {
     // Включаем TX и RX в регистре CNTL: бит 0 RX enable, бит 1 TX enable
     AUX_MU_CNTL_REG = 3;
 
-    // Основной цикл: отправляем 'A' каждые ~1М тактов
-    for(;;) {
-        // Ждем, пока 5-й бит (TX empty) в регистре LSR станет равен 1
-        while (!(AUX_MU_LSR_REG & (1 << 5))); 
-        
-        // Прямая запись символа
-        AUX_MU_IO_REG = 'A'; 
-        
-        delay(1000000);
-    }
+
 }

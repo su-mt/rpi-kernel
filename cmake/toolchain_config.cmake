@@ -4,8 +4,9 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 # Prevent host (macOS) architecture flags from being injected into cross builds.
 set(CMAKE_OSX_ARCHITECTURES "" CACHE STRING "" FORCE)
 
-set(TOOLCHAIN_PREFIX $ENV{ARM_TOOLCHAIN_DIR}/arm-none-eabi)
-set(UTILS_PREFIX $ENV{ARM_UTILS_DIR}/arm-none-eabi)
+set(TOOLCHAIN_ROOT /Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/)
+set(TOOLCHAIN_PREFIX ${TOOLCHAIN_ROOT}/bin/arm-none-eabi)
+set(UTILS_PREFIX ${TOOLCHAIN_ROOT}/bin/arm-none-eabi)
 
 set(CMAKE_C_COMPILER            ${TOOLCHAIN_PREFIX}-gcc)
 set(CMAKE_ASM_COMPILER          ${CMAKE_C_COMPILER})
@@ -20,7 +21,7 @@ set(CMAKE_RANLIB                ${TOOLCHAIN_PREFIX}-gcc-ranlib)
 find_program(CMAKE_OBJCOPY
     NAMES arm-none-eabi-objcopy
     HINTS $ENV{ARM_UTILS_DIR}
-          /opt/homebrew/Cellar/arm-none-eabi-binutils/2.45.1/bin
+          ${TOOLCHAIN_ROOT}/bin
     REQUIRED
 )
 
@@ -29,8 +30,8 @@ string(CONCAT COMMON_FLAGS
     "-mfloat-abi=hard "
     "-mfpu=neon-fp-armv8 "
     "-ffreestanding "
-    "-nostdlib "   
-    "-O2"          
+    "-nostdlib "
+    "-O2"
 )
 
 
@@ -61,6 +62,7 @@ string(CONCAT LINK_FLAGS
     " -Wl,-Map,base_project.map"
     " -Xlinker --gc-sections"
     " -nostartfiles"
+    " -lc -lnosys"
 )
 
 set(CMAKE_EXE_LINKER_FLAGS ${LINK_FLAGS})

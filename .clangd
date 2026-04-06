@@ -5,19 +5,20 @@ InlayHints:
   Enabled: No
 
 CompileFlags:
+  Compiler: /Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/bin/arm-none-eabi-gcc
   Add:
-    - "march=armv8"
-    - "mcpu=cortex-a53 "
-    - "mfloat-abi=hard "
-    - "mfpu=neon-fp-armv8 "
-    - "ffreestanding "
-    - "nostdlib "   
+    - "--target=arm-none-eabi"
+    - "--sysroot=/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi"
+    - "-march=armv8-a"
+    - "-mcpu=cortex-a53"
+    - "-mfloat-abi=hard"
+    - "-mfpu=neon-fp-armv8"
+    - "-ffreestanding"
+    - "-nostdlib"
     - "-Wall"
     - "-g3"
-    - "-I/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include"
-    - "-I/opt/homebrew/Cellar/arm-none-eabi-gcc/15.2.0/lib/gcc/arm-none-eabi/15.2.0/include-fixed"
-    # Указываем, что это bare-metal окружение
-    - "-nostdinc"
+    - "-isystem/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/include"
+    - "-isystem/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/lib/gcc/arm-none-eabi/15.2.1/include"
   CompilationDatabase: build
 
 ---

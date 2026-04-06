@@ -1,6 +1,6 @@
 BOOT_PATH=/Volumes/BOOT
 BUILD_DIR=build
-UTILS_DIR=/opt/homebrew/Cellar/arm-none-eabi-binutils/2.45.1/bin
+UTILS_DIR=/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin
 
 CMAKE_CONFIG=$(BUILD_DIR)/CMakeCache.txt
 

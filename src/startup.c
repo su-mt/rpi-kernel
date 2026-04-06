@@ -1,5 +1,3 @@
-#include "uart.h"
-
 // Базовый адрес GPIO для RPi Zero 2 W
 #define GPIO_BASE 0x3F200000
 
@@ -7,6 +5,11 @@
 #define GPFSEL2 *(volatile unsigned int *)(GPIO_BASE + 0x08)
 #define GPSET0  *(volatile unsigned int *)(GPIO_BASE + 0x1C)
 #define GPCLR0  *(volatile unsigned int *)(GPIO_BASE + 0x28)
+
+
+extern void main();
+void _Exit(int exit_code) __attribute__((noreturn, noinline));
+
 
 __attribute__((naked, section(".text._enter")))
 void _enter(void) {
@@ -17,7 +20,7 @@ void _enter(void) {
         "b .halt\n"
 
         ".core0:\n"
-        "   mov sp, #0x8000\n"
+        "   mov sp, #0x800000\n"
         "   ldr r1, =0x4000009C\n"
         "   ldr r2, =core1_init\n"
         "   str r2, [r1]\n"
@@ -43,14 +46,9 @@ void delay(int count) {
 __attribute__((naked))
 void core1_init() {
     asm volatile (
-        "mov sp, #0x12000\n"
+        "mov sp, #0x400000\n"
         "bl led_blink\n"
-        "b .halt2\n"
-
-
-        ".halt2: \n"
-        "   wfe\n"
-        "   b .halt\n"
+        "b .halt\n"
     );
     
 }
@@ -70,10 +68,3 @@ void led_blink() {
 }
 
 
-void main() {
-
-    UART_Init(); // Инициализация UART для отладки
-
-        
-    
-}
