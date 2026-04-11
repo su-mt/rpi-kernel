@@ -1,0 +1,6 @@
+{
+  "clangd.arguments": [
+    "--compile-commands-dir=build",
+    "--query-driver=/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin/arm-none-eabi-*"
+  ]
+}

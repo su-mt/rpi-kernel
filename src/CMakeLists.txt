@@ -4,6 +4,7 @@ add_executable(${PROJECT_NAME}
     main.c
     stubs.c
     printf.c
+    memory_map/memory.c
 )
 
 # Link with the linker script from this directory.

@@ -4,7 +4,8 @@ set(CMAKE_SYSTEM_PROCESSOR arm)
 # Prevent host (macOS) architecture flags from being injected into cross builds.
 set(CMAKE_OSX_ARCHITECTURES "" CACHE STRING "" FORCE)
 
-set(TOOLCHAIN_ROOT /Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/)
+get_filename_component(REPO_ROOT "${CMAKE_CURRENT_LIST_DIR}/.." ABSOLUTE)
+set(TOOLCHAIN_ROOT "${REPO_ROOT}/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi")
 set(TOOLCHAIN_PREFIX ${TOOLCHAIN_ROOT}/bin/arm-none-eabi)
 set(UTILS_PREFIX ${TOOLCHAIN_ROOT}/bin/arm-none-eabi)
 
@@ -42,7 +43,7 @@ string(CONCAT C_FLAGS
 
 string(CONCAT CPP_FLAGS
     ${COMMON_FLAGS}
-    " -std=c++11"
+    " -std=gnu++20"
     " -fabi-version=0"
     " -fno-rtti -fno-exceptions"
     " -fno-use-cxa-atexit -fno-threadsafe-statics"

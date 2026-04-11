@@ -1,6 +1,16 @@
 #include "uart.h"
-#include <stdio.h>
 #include "printf.h"
+#include "memory_map/memory.h"
+
+
+
+// Базовый адрес GPIO для RPi Zero 2 W
+#define GPIO_BASE 0x3F200000
+
+// Определяем указатели на регистры в памяти
+#define GPFSEL2 *(volatile unsigned int *)(GPIO_BASE + 0x08)
+#define GPSET0  *(volatile unsigned int *)(GPIO_BASE + 0x1C)
+#define GPCLR0  *(volatile unsigned int *)(GPIO_BASE + 0x28)
 
 
 static void delay(int count) {
@@ -11,24 +21,24 @@ static void delay(int count) {
 }
 
 
-const char str [] = "Hello from global const var";
-int size = sizeof(str);
-
-const char str2[] = "Hello from syscall!";
-int size2 = sizeof(str2);
-
 void main() {
-    static char buff2[25] = "hello from stack";
-    for (;;) {
-        snprintf(buff2,sizeof(buff2), "str: %s, len: %d\n", str, size);
-        UART_Init(); 
-        UART_putchar('A'); // работает
-        UART_puts("heloos");  // работает
-        UART_puts(str); 
-        UART_puts(buff2); 
-        printf("str: %s, digit: %d\n", "Hello from syscall", 5);  // работает!
-        delay(4000000);
-    }
-
+    printf("start\n");
+    init_kernel_l2_pages();
+    init_kernel_l1_page(&l1[2], l2);
     
+}
+
+void led_blink() {
+
+    GPFSEL2 &= ~(7 << 27); 
+    // Записываем 001 в биты 3-5
+    GPFSEL2 |= (1 << 27);  
+
+    for(;;) {
+        GPSET0 = (1 << 29); 
+        delay(900000);
+        GPCLR0 = (1 << 29);  // Выключить ток на GPIO 21
+        delay(900000);
+        
+    }
 }

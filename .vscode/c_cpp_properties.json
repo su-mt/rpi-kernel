@@ -1,0 +1,23 @@
+{
+  "version": 4,
+  "configurations": [
+    {
+      "name": "arm-none-eabi",
+      "compilerPath": "/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/bin/arm-none-eabi-g++",
+      "cStandard": "gnu11",
+      "cppStandard": "gnu++20",
+      "intelliSenseMode": "clang-x64",
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+      "includePath": [
+        "${workspaceFolder}/src/**",
+        "/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/include",
+        "/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/include/c++/15.2.1",
+        "/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/include/c++/15.2.1/arm-none-eabi",
+        "/Users/mt/embedded/raspberry/arm-gnu-toolchain-15.2.rel1-darwin-arm64-arm-none-eabi/arm-none-eabi/lib/gcc/arm-none-eabi/15.2.1/include"
+      ],
+      "defines": [
+        "__ARM_ARCH=8"
+      ]
+    }
+  ]
+}
