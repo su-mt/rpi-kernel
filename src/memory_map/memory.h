@@ -12,6 +12,9 @@ enum MemoryTypes {
 };
 
 
+void init_MAIR(void) ;
+void init_mmu(uint64_t l1_phys_addr, uint32_t jump_addr);
+
 typedef uint64_t lpae_desc_t;
 bool set_bits(lpae_desc_t *desc, uint8_t start, uint8_t end, uint64_t bits);
 uint64_t read_bits(uint8_t start, uint8_t end, lpae_desc_t desc);

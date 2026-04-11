@@ -30,3 +30,5 @@ flash:
 	 cp $(BUILD_DIR)/src/kernel7.img $(BOOT_PATH)
 
 
+readelf:
+	$(UTILS_DIR)/arm-none-eabi-readelf -a build/src/kernel7.elf | vim -

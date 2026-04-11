@@ -29,7 +29,6 @@ find_program(CMAKE_OBJCOPY
 string(CONCAT COMMON_FLAGS
     "-mcpu=cortex-a53 "
     "-mfloat-abi=hard "
-    "-mfpu=neon-fp-armv8 "
     "-ffreestanding "
     "-nostdlib "
     "-O2"
